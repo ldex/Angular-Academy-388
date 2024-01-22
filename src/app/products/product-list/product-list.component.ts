@@ -16,7 +16,16 @@ export class ProductListComponent {
   selectedProduct: Product
 
   private productService = inject(ProductService);
-  products: Product[] = this.productService.getProducts();
+  products: Product[];
+
+  constructor() {
+    this
+      .productService
+      .products$
+      .subscribe(
+        result => this.products = result
+      )
+  }
 
   onSelect(product: Product) {
     this.selectedProduct = product
