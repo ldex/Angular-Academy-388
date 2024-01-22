@@ -3,6 +3,7 @@ import { Product } from '../../models/product.interface'
 import { CommonModule } from '@angular/common'
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../../services/product.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -16,15 +17,17 @@ export class ProductListComponent {
   selectedProduct: Product
 
   private productService = inject(ProductService);
+  products$: Observable<Product[]> = this.productService.products$;
+
   products: Product[];
 
   constructor() {
-    this
-      .productService
-      .products$
-      .subscribe(
-        result => this.products = result
-      )
+    // this
+    //   .productService
+    //   .products$
+    //   .subscribe(
+    //     result => this.products = result
+    //   )
   }
 
   onSelect(product: Product) {
