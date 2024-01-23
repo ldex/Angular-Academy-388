@@ -14,7 +14,27 @@ import { Observable } from 'rxjs';
 })
 export class ProductListComponent {
   title: string = 'Products'
-  selectedProduct: Product
+  selectedProduct: Product | undefined
+
+  // Pagination
+  pageSize = 5
+  start = 0
+  end = this.pageSize
+  pageNumber = 1
+
+  previousPage(): void {
+    this.start -= this.pageSize
+    this.end -= this.pageSize
+    this.pageNumber--
+    this.selectedProduct = undefined
+  }
+
+  nextPage(): void {
+    this.start += this.pageSize
+    this.end += this.pageSize
+    this.pageNumber++
+    this.selectedProduct = undefined
+  }
 
   private productService = inject(ProductService);
   products$: Observable<Product[]> = this.productService.products$;
