@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -15,6 +16,8 @@ import { Observable } from 'rxjs';
 export class ProductListComponent {
   title: string = 'Products'
   selectedProduct: Product | undefined
+
+  private router = inject(Router)
 
   // Pagination
   pageSize = 5
@@ -39,7 +42,7 @@ export class ProductListComponent {
   private productService = inject(ProductService);
   products$: Observable<Product[]> = this.productService.products$;
 
-  products: Product[];
+  //products: Product[];
 
   constructor() {
     // this
@@ -52,6 +55,7 @@ export class ProductListComponent {
 
   onSelect(product: Product) {
     this.selectedProduct = product
+    this.router.navigateByUrl('/products/' + product.id)
   }
 
 }

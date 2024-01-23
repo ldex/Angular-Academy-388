@@ -3,6 +3,8 @@
 </h2>
 
 @if (products$ | async; as products) {
+    <div>{{ products.length }} products</div>
+
     <ul class="products">
         @for (product of products | slice:start:end; track product.id) {
             <li [class.discontinued]="product.discontinued"
@@ -20,7 +22,7 @@
             Previous Page
         </button>
         Page {{ pageNumber }}
-        <button (click)="nextPage()">
+        <button (click)="nextPage()" [disabled]="products.length <= end">
             Next Page
         </button>
     </div>
@@ -28,5 +30,3 @@
 @else {
     <div class="loading"></div>
 }
-
-<app-product-detail [product]="selectedProduct"></app-product-detail>
