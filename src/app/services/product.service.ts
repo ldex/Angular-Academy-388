@@ -17,6 +17,11 @@ export class ProductService {
     this.initProducts();
   }
 
+  insertProduct(newProduct: Product): Observable<Product> {
+    newProduct.modifiedDate = new Date();
+    return this.http.post<Product>(this.baseUrl, newProduct);
+  }
+
   getProductById(id: number): Observable<Product> {
       return this
         .products$
